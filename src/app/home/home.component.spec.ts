@@ -1,14 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import {ProductService} from "../shared/product.service";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let mockProductService: jasmine.SpyObj<ProductService>;
 
   beforeEach(async () => {
+    mockProductService = jasmine.createSpyObj<ProductService>(['getProducts']);
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ HomeComponent ],
+      providers: [
+        { provide: ProductService, useValue: mockProductService },
+      ]
     })
     .compileComponents();
   });
